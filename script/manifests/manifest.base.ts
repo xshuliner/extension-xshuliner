@@ -1,15 +1,16 @@
-import { defineManifest } from '@crxjs/vite-plugin';
+import pkg from '../../package.json';
 
-// Centralized manifest definition for CRXJS
-export default defineManifest({
+const devPrefix = process.env.NODE_ENV === 'development' ? 'DEV | ' : '';
+
+export const manifestBase = {
   manifest_version: 3,
-  name: '我的 Vite + React 扩展',
-  version: '1.0.0',
-  description: '一个使用 Vite 和 React 构建的浏览器扩展。',
+  name: devPrefix + pkg.name,
+  version: pkg.version,
+  description: devPrefix + pkg.description,
 
   action: {
     default_popup: 'src/popup/index.html',
-    default_title: '我的扩展',
+    default_title: pkg.name,
     default_icon: {
       '16': 'icons/icon.png',
       '48': 'icons/icon.png',
@@ -21,9 +22,8 @@ export default defineManifest({
     service_worker: 'src/background/index.ts',
   },
 
-  side_panel: {
-    default_path: 'src/sidepanel/index.html',
-  },
+  // Note: side panel varies by browser. Chrome/Edge use `side_panel` and permission `sidePanel`.
+  // Firefox uses `sidebar_action`. These are defined in browser-specific manifests.
 
   // DevTools page
   devtools_page: 'src/devtools/devtools.html',
@@ -46,9 +46,7 @@ export default defineManifest({
     },
   ],
 
-  permissions: ['storage', 'activeTab', 'sidePanel'],
-
   icons: {
     '128': 'icons/icon.png',
   },
-});
+};

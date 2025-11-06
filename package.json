@@ -1,7 +1,8 @@
 {
   "name": "extension-xshuliner",
   "private": true,
-  "version": "0.0.0",
+  "version": "999.999.999",
+  "description": "一款高效优雅的日常工作助手，全面提升你的工作效率与体验。",
   "type": "module",
   "scripts": {
     "dev": "vite",
