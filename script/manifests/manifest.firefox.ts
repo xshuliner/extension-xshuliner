@@ -7,4 +7,11 @@ export const manifestFirefox = {
   },
   // Align permissions without Chrome's sidePanel
   permissions: ['storage', 'activeTab'],
+
+  browser_specific_settings: {
+    gecko: {
+      id: 'xxx@xshuliner.online',
+      strict_min_version: '127.0',
+    },
+  },
 };

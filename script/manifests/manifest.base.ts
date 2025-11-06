@@ -12,9 +12,9 @@ export const manifestBase = {
     default_popup: 'src/popup/index.html',
     default_title: pkg.name,
     default_icon: {
-      '16': 'icons/icon.png',
-      '48': 'icons/icon.png',
-      '128': 'icons/icon.png',
+      '16': 'icon.png',
+      '48': 'icon.png',
+      '128': 'icon.png',
     },
   },
 
@@ -47,6 +47,6 @@ export const manifestBase = {
   ],
 
   icons: {
-    '128': 'icons/icon.png',
+    '128': 'icon.png',
   },
 };
