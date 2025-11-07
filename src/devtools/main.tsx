@@ -1,4 +1,3 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import DevtoolsPanelApp from './App';
 
@@ -7,4 +6,3 @@ if (container) {
   const root = createRoot(container);
   root.render(<DevtoolsPanelApp />);
 }
-

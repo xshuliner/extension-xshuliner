@@ -1,0 +1,9 @@
+custom
+dictionary
+ianvs
+xshuliner
+uuidv
+sidepanel
+webextension
+crxjs
+newtab

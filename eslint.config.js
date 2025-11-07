@@ -1,4 +1,6 @@
 import eslint from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
 import { defineConfig } from 'eslint/config';
 import tseslint from 'typescript-eslint';
 
@@ -11,6 +13,8 @@ export default defineConfig([
       '.*',
       '**/*.d.ts',
     ],
+  },
+  {
     plugins: {
       prettier: eslintPluginPrettier,
     },

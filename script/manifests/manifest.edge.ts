@@ -5,5 +5,3 @@ export const manifestEdge = {
   },
   permissions: ['storage', 'activeTab', 'sidePanel'],
 };
-
-

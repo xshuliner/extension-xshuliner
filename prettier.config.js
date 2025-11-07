@@ -25,10 +25,22 @@ export default {
   singleAttributePerLine: false, // 每个属性一行（现代前端项目推荐为true）
 
   endOfLine: 'lf',
-  importOrder: ['^react$', '^next', '^@/(.*)$', '^[./]'],
-  importOrderSeparation: false,
-  importOrderSortSpecifiers: true,
-  plugins: ['prettier-plugin-tailwindcss', 'prettier-plugin-organize-imports'],
+  // 导入顺序配置 (@ianvs/prettier-plugin-sort-imports)
+  // 空字符串 '' 用于在导入组之间添加空行
+  // 插件会自动排序导入的 specifiers（导入项）
+  importOrder: [
+    '<BUILTIN_MODULES>', // Node.js built-in modules
+    '<THIRD_PARTY_MODULES>', // Imports not matched by other special words or groups.
+    '', // Empty line',
+    '^@/(.*)$',
+    '',
+    '^[./]',
+  ],
+  plugins: [
+    '@ianvs/prettier-plugin-sort-imports',
+    'prettier-plugin-tailwindcss',
+    'prettier-plugin-organize-imports',
+  ],
 
   // 文件类型特定配置
   overrides: [

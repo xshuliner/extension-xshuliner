@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function OptionsApp() {
   const [name, setName] = useState('');
 
   useEffect(() => {
-    chrome.storage.sync.get({ name: '' }, (res) => setName(res.name));
+    chrome.storage.sync.get({ name: '' }, res => setName(res.name));
   }, []);
 
   const save = () => {
@@ -18,14 +18,14 @@ export default function OptionsApp() {
         名称：
         <input
           value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="输入名称"
+          onChange={e => setName(e.target.value)}
+          placeholder='输入名称'
           style={{ marginLeft: 6 }}
         />
       </label>
-      <button onClick={save} style={{ marginTop: 8 }}>保存</button>
+      <button onClick={save} style={{ marginTop: 8 }}>
+        保存
+      </button>
     </div>
   );
 }
-
-

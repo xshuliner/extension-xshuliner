@@ -5,5 +5,3 @@ export const manifestChrome = {
   },
   permissions: ['storage', 'activeTab', 'sidePanel'],
 };
-
-

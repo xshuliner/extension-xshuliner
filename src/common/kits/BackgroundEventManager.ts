@@ -5,7 +5,6 @@ import GlobalManager from '@/src/common/kits/GlobalManager';
 import type { IMessageType } from '@/src/types';
 import browser from 'webextension-polyfill';
 
-
 /**
  * @description background事件管理器
  */

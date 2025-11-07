@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function NewtabApp() {
   return (
     <div style={{ padding: 12 }}>
@@ -8,5 +6,3 @@ export default function NewtabApp() {
     </div>
   );
 }
-
-

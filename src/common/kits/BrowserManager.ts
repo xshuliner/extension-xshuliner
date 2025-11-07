@@ -1,4 +1,3 @@
-import GlobalManager from '@/src/common/kits/GlobalManager';
 import browser from 'webextension-polyfill';
 
 /**

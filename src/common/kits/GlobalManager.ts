@@ -12,7 +12,7 @@ class GlobalManager {
   g_whiteListForRegister!: string[];
   g_isMac!: boolean;
   g_backgroundPort: browser.Runtime.Port | null = null;
-  
+
   g_handleBackgroundMessage!: (
     message: any,
     port: browser.Runtime.Port

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function PopupApp() {
   return (
     <div style={{ padding: 12 }}>
@@ -8,5 +6,3 @@ export default function PopupApp() {
     </div>
   );
 }
-
-
