@@ -1,3 +1,4 @@
+import XNavHeader from '@/src/common/components/XNavHeader';
 import XPageCore from '@/src/common/components/XPageCore';
 import { useState } from 'react';
 
@@ -6,8 +7,9 @@ function App() {
 
   return (
     <XPageCore
+      customClassNameChildren='px-2'
       renderPageHeader={() => {
-        return <div>Home</div>;
+        return <XNavHeader>App</XNavHeader>;
       }}
     >
       <div>hello start</div>

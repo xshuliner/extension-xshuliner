@@ -1,3 +1,4 @@
+import XNavHeader from '@/src/common/components/XNavHeader';
 import XPageCore from '@/src/common/components/XPageCore';
 import type React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -34,7 +35,12 @@ export default function NotFound(): React.ReactNode {
   );
 
   return (
-    <XPageCore>
+    <XPageCore
+      customClassNameChildren='px-2'
+      renderPageHeader={() => {
+        return <XNavHeader>NotFound</XNavHeader>;
+      }}
+    >
       <div className='flex min-h-screen flex-col items-center justify-center bg-gray-900 p-4 font-mono'>
         {/* 模拟游戏机边框的容器 */}
         <div className='w-full max-w-xl rounded-xl border-8 border-yellow-400 bg-gray-800 p-8 shadow-[20px_20px_0_0_#b58400] transition-all duration-500 ease-in-out sm:p-12'>
