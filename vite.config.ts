@@ -1,4 +1,5 @@
 import { crx } from '@crxjs/vite-plugin';
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path'; // 用于路径解析
 import { defineConfig, loadEnv } from 'vite';
@@ -19,6 +20,7 @@ export default defineConfig(({ mode }) => {
     // 插件配置
     plugins: [
       react(), // React 支持
+      tailwindcss(),
       // CRXJS 插件是核心，传入定义的 manifest
       crx({ manifest }),
     ],

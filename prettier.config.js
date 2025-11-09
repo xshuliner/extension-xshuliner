@@ -25,22 +25,36 @@ export default {
   singleAttributePerLine: false, // 每个属性一行（现代前端项目推荐为true）
 
   endOfLine: 'lf',
-  // 导入顺序配置 (@ianvs/prettier-plugin-sort-imports)
-  // 空字符串 '' 用于在导入组之间添加空行
-  // 插件会自动排序导入的 specifiers（导入项）
+
   importOrder: [
-    '<BUILTIN_MODULES>', // Node.js built-in modules
-    '<THIRD_PARTY_MODULES>', // Imports not matched by other special words or groups.
+    // 1. 第三方模块
+    '<THIRD_PARTY_MODULES>',
+
     '', // Empty line',
+
+    // 2. 局部别名样式文件
     '^@/(.*)$',
+
     '',
+
+    // 4. 相对路径导入
     '^[./]',
   ],
+
+  // ** 关键配置调整：移除对 CSS/SCSS 的“安全”标记 **
+  // 这样它们会按照上面的 importOrder 规则来排序，而不是被插件的副作用逻辑特殊处理。
+  importOrderSafeSideEffects: [
+    // 明确告诉插件：所有以 @/ 开头且是 CSS/SCSS 的导入，是“安全的”，可以被排序规则移动
+    '^@/(.*)\\.(css|scss)$',
+  ],
+
   plugins: [
     '@ianvs/prettier-plugin-sort-imports',
-    'prettier-plugin-tailwindcss',
     'prettier-plugin-organize-imports',
+    'prettier-plugin-tailwindcss',
   ],
+
+  tailwindStylesheet: './src/tailwind.css',
 
   // 文件类型特定配置
   overrides: [
