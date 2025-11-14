@@ -4,11 +4,9 @@ import { manifestChrome } from './manifests/manifest.chrome';
 import { manifestEdge } from './manifests/manifest.edge';
 import { manifestFirefox } from './manifests/manifest.firefox';
 import { manifestSafari } from './manifests/manifest.safari';
+import { getEnv } from './utils/index';
 
-const EXT_WEB_PLATFORM_DEFAULT = 'chrome';
-const platform = (
-  process.env.EXT_WEB_PLATFORM ?? EXT_WEB_PLATFORM_DEFAULT
-).toLowerCase();
+const { platform } = getEnv();
 
 const manifestPlatform: Record<string, unknown> = {
   chrome: manifestChrome,

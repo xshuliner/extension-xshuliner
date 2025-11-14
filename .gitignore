@@ -11,8 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
 
-# build
+# Build
 tsconfig.tsbuildinfo
 
 # Editor directories and files
