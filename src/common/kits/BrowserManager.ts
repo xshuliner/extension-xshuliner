@@ -21,7 +21,7 @@ class BrowserManager {
   ): browser.Scripting.InjectionResult[] => {
     return [
       {
-        documentId: '0',
+        // documentId: '0',
         frameId: 0,
         result,
       },
@@ -35,7 +35,7 @@ class BrowserManager {
    */
   private executeScriptCompat = async (
     tabId: number,
-    options: { func: Function; args?: any[] }
+    options: { func?(...args: unknown[]): unknown; args?: any[] }
   ): Promise<browser.Scripting.InjectionResult[]> => {
     try {
       // 检查是否支持新的 scripting API (Chrome)
