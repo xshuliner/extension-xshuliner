@@ -6,14 +6,14 @@ import pkg from './package.json';
 import manifest from './script/manifest.config';
 import { getEnv } from './script/utils/index';
 
-const { nodeEnv, webEnv, platform } = getEnv();
-
 // https://vite.dev/config/
 
 // ------------------------------------
 // 步骤 3: 配置 Vite
 // ------------------------------------
-export default defineConfig(({ mode }) => {
+export default defineConfig(() => {
+  const { nodeEnv, webEnv, platform } = getEnv();
+
   const outDir =
     nodeEnv === 'development'
       ? `dist/${pkg.name}-${platform}-${pkg.version}-${webEnv}`
@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => {
 
     // 构建配置 (通常 crxjs 已经处理得很好，但可以根据需要调整)
     build: {
-      // 输出目录：dist/${pkg.name}-${VITE_EXT_WEB_PLATFORM}-${version}-DEV
+      // 输出目录：dist/${pkg.name}-${platform}-${version}-${webEnv}
       outDir,
       // 禁用清空输出目录，crxjs 会在开发模式下使用内存或特定目录
       emptyOutDir: true,

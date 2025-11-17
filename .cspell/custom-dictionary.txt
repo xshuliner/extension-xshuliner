@@ -8,3 +8,4 @@ sidepanel
 webextension
 crxjs
 newtab
+webenv
