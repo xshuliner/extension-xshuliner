@@ -162,8 +162,11 @@ class BackgroundEventManager {
 
     if (isListen) {
       console.debug('onWebRequestCompleted detail:', details);
+      this.postConnectMessage({
+        type: 'xshuliner-background-all-request-completed',
+        details,
+      });
     }
-    // const { tabId, url } = details || {};
   };
 
   onConnectCommon = async (
@@ -232,6 +235,7 @@ class BackgroundEventManager {
       if (target === clientName || target === 'all') {
         try {
           // console.log("[Debug] BackgroundEventManager postConnectMessage", client, message);
+          // port?.postMessage({ ...message, name });
           port?.postMessage(message);
         } catch (_error) {
           console.debug('[Debug] Port disconnected, cleaning up:', port);

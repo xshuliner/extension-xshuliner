@@ -4,23 +4,18 @@
 import type { IMessageType } from '@/src/types';
 import { v4 as uuidv4 } from 'uuid';
 import browser from 'webextension-polyfill';
+import EventManager from './EventManager';
 
 // import packageJson from '../../package.json';
 
 class GlobalManager {
   static instance: GlobalManager | null = null;
 
-  g_whiteListForRegister!: string[];
+  g_surfaceName: string = 'unknown';
+
   g_isMac!: boolean;
 
-  // connect
-  g_connectName: string = 'unknown';
-  g_connectPort: browser.Runtime.Port | null = null;
-
-  g_handleBackgroundMessage!: (
-    _message: any,
-    _port: browser.Runtime.Port
-  ) => Promise<void>;
+  g_surfacePort: browser.Runtime.Port | null = null;
 
   g_activeTabInfo: browser.Tabs.OnActivatedActiveInfoType | null = null;
 
@@ -33,26 +28,30 @@ class GlobalManager {
       // this.instance.g_isMac =
       //   typeof navigator !== 'undefined' &&
       //   navigator?.platform?.toUpperCase()?.indexOf('MAC') >= 0;
-      // this.instance.g_connectPort = null;
+      // this.instance.g_surfacePort = null;
     }
     return this.instance;
   }
 
   postConnectMessage(params: IMessageType) {
-    this.g_connectPort?.postMessage({
+    this.g_surfacePort?.postMessage({
       ...params,
-      type: `xshuliner-${this.g_connectName}-${params.type}`,
+      type: `xshuliner-${this.g_surfaceName}-${params.type}`,
     });
   }
 
   connectBackground(params: { name: string }) {
-    const { name = this.g_connectName } = params || {};
+    const { name = this.g_surfaceName } = params || {};
 
-    this.g_connectPort = browser.runtime.connect({
+    this.g_surfaceName = name;
+    this.g_surfacePort = browser.runtime.connect({
       name: `xshuliner-${name}-${uuidv4()}`,
     });
-    this.g_connectName = name;
-    this.g_connectPort?.onMessage?.addListener(this.g_handleBackgroundMessage);
+    this.g_surfacePort?.onMessage?.addListener(
+      (message: any, _port: browser.Runtime.Port) => {
+        EventManager.emit('xshuliner-extensions', message);
+      }
+    );
   }
 }
 

@@ -1,8 +1,26 @@
 import XNavHeader from '@/src/common/components/XNavHeader';
 import XPageCore from '@/src/common/components/XPageCore';
+import { useEventManager } from '@/src/common/hooks/useEventManager';
 import GlobalManager from '@/src/common/kits/GlobalManager';
+import type { IMessageType } from '@/src/types';
 
 export default function SidepanelApp() {
+  const { emit: _emitExtensions } = useEventManager(
+    'xshuliner-extensions',
+    (data: IMessageType) => {
+      // console.log('xshuliner-extensions', data);
+
+      const { type, ..._otherInfo } = data || {};
+
+      switch (type) {
+        case 'xshuliner-background-all-request-completed': {
+          console.log('xshuliner-background-all-request-completed', data);
+          break;
+        }
+      }
+    }
+  );
+
   const handleBtnTest = () => {
     GlobalManager.postConnectMessage({
       type: 'background-test-demo',
