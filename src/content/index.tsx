@@ -9,16 +9,19 @@ interface DevToolsMessage {
 }
 
 browser.runtime.onMessage.addListener(
-  (message: DevToolsMessage, _sender, sendResponse) => {
-    if (message.type === 'devtools-command') {
-      if (message.command === 'ping') {
+  (message: unknown, _sender, sendResponse) => {
+    const devToolsMessage = message as DevToolsMessage;
+    if (devToolsMessage.type === 'devtools-command') {
+      if (devToolsMessage.command === 'ping') {
         sendResponse({
           success: true,
           message: 'Pong from content script!',
           timestamp: Date.now(),
         });
-        return true; // 保持消息通道开放以支持异步响应
+        // return true; // 保持消息通道开放以支持异步响应
       }
     }
+    // return undefined;
+    return true;
   }
 );

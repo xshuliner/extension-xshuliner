@@ -1,5 +1,6 @@
 import BG from '@/src/assets/bg.jpg';
 import classnames from 'classnames';
+import type React from 'react';
 
 export interface IXPageCoreProps {
   customClassNameChildren?: string;

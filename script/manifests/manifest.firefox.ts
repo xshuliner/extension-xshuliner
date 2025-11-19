@@ -6,7 +6,8 @@ export const manifestFirefox = {
     default_panel: 'src/sidepanel/index.html',
   },
   // Align permissions without Chrome's sidePanel
-  permissions: ['storage', 'activeTab'],
+  permissions: ['storage', 'activeTab', 'webRequest'],
+  host_permissions: ['<all_urls>'],
 
   browser_specific_settings: {
     gecko: {

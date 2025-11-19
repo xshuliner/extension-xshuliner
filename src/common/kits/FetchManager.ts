@@ -21,7 +21,7 @@ class FetchManager {
 
   async sendRequest(config: any) {
     console.log('sendRequest', config);
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _reject) => {
       resolve({
         code: 0,
         message: 'success',

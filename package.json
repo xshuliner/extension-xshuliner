@@ -13,7 +13,7 @@
     "build:uat": "tsc -b && WEBENV=uat PLATFORM=chrome vite build",
     "build:prod": "tsc -b && WEBENV=prod PLATFORM=chrome vite build",
     "preview": "vite preview",
-    "lint": "pnpm lint:eslint && pnpm lint:prettier && pnpm lint:cspell",
+    "lint": "tsc --noEmit && pnpm lint:eslint && pnpm lint:prettier && pnpm lint:cspell",
     "lint:eslint": "eslint",
     "lint:prettier": "prettier --write \"**/*.{js,ts,mjs,cjs,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:cspell": "cspell lint \"**/*.{js,ts,mjs,cjs,json,tsx,css,less,scss,vue,html,md}\"",

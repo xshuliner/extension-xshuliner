@@ -1,4 +1,5 @@
 import { stopEventDefault } from '@/src/common/utils';
+import type React from 'react';
 
 export interface XButtonProps {
   type?: string;
@@ -10,7 +11,7 @@ export interface XButtonProps {
 export default function XButton(props: XButtonProps) {
   const { onClick, typeHtml = 'button', children } = props || {};
 
-  const handleBtnClick = e => {
+  const handleBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     stopEventDefault(e);
     onClick?.();
   };

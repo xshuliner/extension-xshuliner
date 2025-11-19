@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
+// import browser from 'webextension-polyfill';
 
 export default function OptionsApp() {
   const [name, setName] = useState('');
 
   useEffect(() => {
-    chrome.storage.sync.get({ name: '' }, res => setName(res.name));
+    // browser.storage.sync.get({ name: '' });
   }, []);
 
   const save = () => {
-    chrome.storage.sync.set({ name });
+    // browser.storage.sync.set({ name });
   };
 
   return (

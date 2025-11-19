@@ -9,7 +9,7 @@ browser.runtime.onInstalled.addListener((): void => {
   }
 
   // Chrome 特有的 sidePanel API
-  if ((browser as any)?.sidePanel?.setPanelBehavior) {
+  if ((browser as any).sidePanel?.setPanelBehavior) {
     (browser as any).sidePanel.setPanelBehavior({
       openPanelOnActionClick: true,
     });
@@ -35,11 +35,15 @@ browser.runtime.onInstalled.addListener((): void => {
 
 browser.runtime.onMessage.addListener(
   (
-    request: IMessageType,
+    request: unknown,
     sender: browser.Runtime.MessageSender,
-    sendResponse
+    sendResponse: (_response: unknown) => void
   ) => {
-    BackgroundEventManager.onMessage(request, sender, sendResponse);
+    BackgroundEventManager.onMessage(
+      request as IMessageType,
+      sender,
+      sendResponse
+    );
     return true; // Indicates we will send a response asynchronously
   }
 );
@@ -65,10 +69,10 @@ browser.tabs.onRemoved.addListener(BackgroundEventManager.onTabsRemoved);
 // //   ['blocking']
 // // );
 
-// browser.webRequest.onCompleted.addListener(
-//   BackgroundEventManager.onWebRequestCompleted,
-//   { urls: ['<all_urls>'] }
-// );
+browser.webRequest.onCompleted.addListener(
+  BackgroundEventManager.onWebRequestCompleted,
+  { urls: ['<all_urls>'] }
+);
 
 browser.runtime.onConnect.addListener((port: browser.Runtime.Port) => {
   // 监听连接断开
@@ -89,9 +93,9 @@ browser.runtime.onConnect.addListener((port: browser.Runtime.Port) => {
   BackgroundEventManager.connectPortMap.set(port.name, port);
 
   // 监听消息
-  port.onMessage.addListener(message => {
+  port.onMessage.addListener((message: unknown) => {
     try {
-      BackgroundEventManager.onConnectCommon(message, port);
+      BackgroundEventManager.onConnectCommon(message as IMessageType, port);
     } catch (error) {
       const lastError = browser.runtime.lastError;
       console.log(

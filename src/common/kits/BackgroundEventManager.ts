@@ -38,9 +38,11 @@ class BackgroundEventManager {
       }
       case 'createTab': {
         const { createProperties, cbName } = request;
-        BrowserManager.createTab(createProperties).then(tab => {
+        BrowserManager.createTab(
+          createProperties as browser.Tabs.CreateCreatePropertiesType
+        ).then(tab => {
           if (cbName) {
-            BrowserManager.executeScript(tab, request);
+            BrowserManager.executeScript(tab!, request);
           }
           sendResponse(true);
         });
@@ -116,13 +118,13 @@ class BackgroundEventManager {
   };
 
   onTabsRemoved = (
-    tabId: number,
-    removeInfo: { windowId: number; isWindowClosing: boolean }
+    _tabId: number,
+    _removeInfo: { windowId: number; isWindowClosing: boolean }
   ) => {
     // Tab Remove
   };
 
-  onContextMenusClick = (menuInfo: any, tabInfo: browser.Tabs.Tab) => {
+  onContextMenusClick = (menuInfo: any, _tabInfo: browser.Tabs.Tab) => {
     const { menuItemId } = menuInfo || {};
 
     switch (menuItemId) {
@@ -153,11 +155,29 @@ class BackgroundEventManager {
     // const { tabId, url } = details || {};
   };
 
-  onConnectCommon = async (message: any, port: browser.Runtime.Port) => {
+  onConnectCommon = async (
+    message: IMessageType,
+    port: browser.Runtime.Port
+  ) => {
     const { type, ...otherInfo } = message || {};
+    const [name, _source, target, ...arrTypeName] = type?.split('-') || [];
     // console.log("onConnectCommon", type, otherInfo);
-    switch (type) {
-      case 'xshuliner-sidepanel-background-tab-query': {
+
+    if (name !== 'xshuliner' || target !== 'background') {
+      return;
+    }
+
+    switch (arrTypeName.join('-')) {
+      case 'test-demo': {
+        console.log(
+          '[xshuliner] BackgroundEventManager onConnectCommon',
+          type,
+          otherInfo,
+          port
+        );
+        break;
+      }
+      case 'tab-query': {
         // const activeTabInfo = await BrowserManager.getActiveTabInfo();
         // this.postConnectMessage({
         //   type: `xshuliner-background-all-tab-query`,
@@ -166,12 +186,12 @@ class BackgroundEventManager {
         break;
       }
       default: {
-        console.log(
-          '[xshuliner] BackgroundEventManager onConnectCommon',
-          type,
-          otherInfo,
-          port
-        );
+        // console.log(
+        //   '[xshuliner] BackgroundEventManager onConnectCommon',
+        //   type,
+        //   otherInfo,
+        //   port
+        // );
         break;
       }
     }
@@ -194,7 +214,7 @@ class BackgroundEventManager {
 
   postConnectMessage = (message: IMessageType) => {
     const { type } = message || {};
-    const [_, source, target] = type?.split('-') || [];
+    const [_, _source, target] = type?.split('-') || [];
 
     for (const [name, port] of this.connectPortMap) {
       const clientName = name?.split('-')[1];
@@ -202,7 +222,7 @@ class BackgroundEventManager {
         try {
           // console.log("[Debug] BackgroundEventManager postConnectMessage", client, message);
           port?.postMessage(message);
-        } catch (error) {
+        } catch (_error) {
           console.debug('[Debug] Port disconnected, cleaning up:', port);
         }
       }

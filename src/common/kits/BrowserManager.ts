@@ -35,7 +35,7 @@ class BrowserManager {
    */
   private executeScriptCompat = async (
     tabId: number,
-    options: { func?(...args: unknown[]): unknown; args?: any[] }
+    options: { func?(..._args: unknown[]): unknown; args?: any[] }
   ): Promise<browser.Scripting.InjectionResult[]> => {
     try {
       // 检查是否支持新的 scripting API (Chrome)
@@ -51,7 +51,7 @@ class BrowserManager {
         }));
       } else {
         // 使用旧的 tabs.executeScript API (Firefox)
-        const code = `(${options.func.toString()})(${JSON.stringify(options.args?.[0] || {})});`;
+        const code = `(${options.func!.toString()})(${JSON.stringify(options.args?.[0] || {})});`;
         const results = await browser.tabs.executeScript(tabId, { code });
         return [
           {
@@ -348,7 +348,7 @@ class BrowserManager {
       const { cbName = '', cbParams = {} } = params || {};
       switch (cbName) {
         case 'test': {
-          this.executeScriptCompat(tab.id, {
+          this.executeScriptCompat(tab.id!, {
             func: cbParams => {
               console.log('handleExecuteScript test', cbParams);
               return true;
@@ -605,7 +605,7 @@ class BrowserManager {
                     if (!isSet) {
                       element.value = action.value;
                     }
-                  } catch (e) {
+                  } catch (_) {
                     element.value = action.value;
                   }
 

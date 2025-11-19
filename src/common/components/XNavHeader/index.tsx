@@ -1,6 +1,7 @@
 import XButton from '@/src/common/components/XButton';
 import XIcon from '@/src/common/components/XIcon';
 import classnames from 'classnames';
+import type React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export interface IXNavHeaderProps {
