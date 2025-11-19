@@ -4,8 +4,8 @@ import GlobalManager from '@/src/common/kits/GlobalManager';
 
 export default function SidepanelApp() {
   const handleBtnTest = () => {
-    GlobalManager.g_connectPort?.postMessage({
-      type: 'test-demo',
+    GlobalManager.postConnectMessage({
+      type: 'background-test-demo',
       payload: {
         a: 1,
         b: 2,

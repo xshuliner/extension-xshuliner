@@ -38,7 +38,7 @@ class GlobalManager {
     return this.instance;
   }
 
-  postMessage(params: IMessageType) {
+  postConnectMessage(params: IMessageType) {
     this.g_connectPort?.postMessage({
       ...params,
       type: `xshuliner-${this.g_connectName}-${params.type}`,

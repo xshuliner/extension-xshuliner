@@ -151,7 +151,18 @@ class BackgroundEventManager {
 
   onWebRequestCompleted = (details: any) => {
     // console.debug("请求 URL:", details.url);
-    console.debug('onWebRequestCompleted detail:', details);
+
+    const { url } = details;
+
+    const arrWhiteListList = ['ainAnalysis/getPortraitDat'];
+
+    const isListen = arrWhiteListList.some(item => {
+      return url?.includes(item);
+    });
+
+    if (isListen) {
+      console.debug('onWebRequestCompleted detail:', details);
+    }
     // const { tabId, url } = details || {};
   };
 

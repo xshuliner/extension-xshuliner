@@ -1,5 +1,5 @@
-import { EnumWebEnv } from '@/src/types';
 import pkg from '../../package.json';
+import { EnumWebEnv } from '../types';
 import { getEnv } from '../utils/index';
 
 const { nodeEnv, webEnv } = getEnv();

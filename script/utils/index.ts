@@ -1,5 +1,5 @@
-import { EnumPlatform, EnumWebEnv } from '@/src/types';
 import { loadEnv } from 'vite';
+import { EnumPlatform, EnumWebEnv } from '../types';
 
 /**
  * 解析命令行参数
