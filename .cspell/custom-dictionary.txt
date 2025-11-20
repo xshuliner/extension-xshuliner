@@ -9,3 +9,4 @@ webextension
 crxjs
 newtab
 webenv
+wechat

@@ -9,6 +9,7 @@ import {
   Sun,
   User,
 } from 'lucide-react';
+import type React from 'react';
 import { useEffect, useState } from 'react';
 
 const XLogin = () => {
@@ -24,7 +25,7 @@ const XLogin = () => {
     setAnimateBg(true);
   }, []);
 
-  const handleLogin = e => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setTimeout(() => {
