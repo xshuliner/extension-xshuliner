@@ -1,7 +1,9 @@
 import { XButton } from '@/src/common/components/XButton';
-import XIcon from '@/src/common/components/XIcon';
+import { toggleTheme } from '@/src/common/utils';
 import { cva } from 'class-variance-authority';
+import { Home, Moon, Sun } from 'lucide-react';
 import type React from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export interface IXNavHeaderProps {
@@ -13,7 +15,7 @@ export interface IXNavHeaderProps {
 }
 
 const headerClassName = cva(
-  'relative box-border flex flex-row items-center justify-between gap-2 p-2'
+  'font-semibold text-foreground relative box-border flex flex-row items-center justify-between gap-2 p-2'
 );
 
 const childrenWrapperClassName = cva(
@@ -30,6 +32,25 @@ export default function XNavHeader(props: IXNavHeaderProps) {
   } = props || {};
 
   const navigate = useNavigate();
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // 检查当前主题
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+
+    checkTheme();
+
+    // 监听 class 变化
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleBtnHomeClick = () => {
     console.log('handleBtnHomeClick');
@@ -37,6 +58,10 @@ export default function XNavHeader(props: IXNavHeaderProps) {
     //   replace: true,
     // });
     navigate(-1);
+  };
+
+  const handleToggleTheme = () => {
+    toggleTheme();
   };
 
   return (
@@ -47,8 +72,8 @@ export default function XNavHeader(props: IXNavHeaderProps) {
           {renderCustomLeft ? (
             renderCustomLeft?.()
           ) : (
-            <XButton onClick={handleBtnHomeClick}>
-              <XIcon name='home' />
+            <XButton variant='ghost' onClick={handleBtnHomeClick}>
+              <Home className='size-5' />
             </XButton>
           )}
         </div>
@@ -64,11 +89,17 @@ export default function XNavHeader(props: IXNavHeaderProps) {
       </div>
 
       {/* right */}
-      {renderCustomRight && (
-        <div className='flex flex-0 flex-row items-center justify-center'>
-          {renderCustomRight?.()}
-        </div>
-      )}
+      <div className='flex flex-0 flex-row items-center justify-center gap-2'>
+        <XButton
+          variant='ghost'
+          size='icon'
+          onClick={handleToggleTheme}
+          aria-label='切换主题'
+        >
+          {isDark ? <Sun className='size-5' /> : <Moon className='size-5' />}
+        </XButton>
+        {renderCustomRight && renderCustomRight?.()}
+      </div>
     </div>
   );
 }

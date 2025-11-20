@@ -48,9 +48,15 @@ export default function Home(): React.ReactNode {
         return <XNavHeader>Home</XNavHeader>;
       }}
     >
-      <div className='absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center gap-2'>
-        <XButton onClick={handleBtnDemoClick}>Demo</XButton>
-        <XButton onClick={handleBtnLoginClick}>404</XButton>
+      <div className='absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center gap-4'>
+        <div className='flex gap-2'>
+          <XButton variant='primary' onClick={handleBtnDemoClick}>
+            Demo
+          </XButton>
+          <XButton variant='primary' onClick={handleBtnLoginClick}>
+            404
+          </XButton>
+        </div>
       </div>
     </XPageCore>
   );
