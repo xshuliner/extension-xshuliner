@@ -29,6 +29,9 @@
     ]
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.4",
+    "class-variance-authority": "^0.7.1",
+    "lucide-react": "^0.554.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "uuid": "^13.0.0"
@@ -41,6 +44,7 @@
     "@cspell/dict-lorem-ipsum": "^4.0.5",
     "@eslint/js": "^9.36.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
+    "@tailwindcss/postcss": "^4.1.17",
     "@tailwindcss/vite": "^4.1.17",
     "@types/chrome": "^0.1.27",
     "@types/node": "^24.6.0",
@@ -48,7 +52,7 @@
     "@types/react-dom": "^19.1.9",
     "@types/webextension-polyfill": "^0.12.4",
     "@vitejs/plugin-react": "^5.0.4",
-    "classnames": "^2.5.1",
+    "autoprefixer": "^10.4.22",
     "commitizen": "^4.3.1",
     "cspell": "^9.3.0",
     "eslint": "^9.36.0",

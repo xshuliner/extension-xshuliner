@@ -3,3 +3,10 @@
 body {
   font-size: 16px;
 }
+
+@layer base {
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}

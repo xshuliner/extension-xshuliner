@@ -4,7 +4,6 @@ import Home from '@/src/devtools/pages/Home';
 import { createHashRouter } from 'react-router-dom';
 
 export const router = createHashRouter([
-  // 公开访问的路由
   {
     path: '/',
     children: [

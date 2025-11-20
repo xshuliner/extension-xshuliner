@@ -1,15 +1,24 @@
 import NotFound from '@/src/common/pages/NotFound';
-import SidepanelApp from '@/src/sidepanel/App';
+import Demo from '@/src/sidepanel/pages/Demo';
+import Home from '@/src/sidepanel/pages/Home';
+import Login from '@/src/sidepanel/pages/Login';
 import { createHashRouter } from 'react-router-dom';
 
 export const router = createHashRouter([
-  // 公开访问的路由
   {
     path: '/',
     children: [
       {
         path: '/',
-        element: <SidepanelApp />,
+        element: <Home />,
+      },
+      {
+        path: '/demo',
+        element: <Demo />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
       },
     ],
   },

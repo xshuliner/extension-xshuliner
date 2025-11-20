@@ -1,6 +1,7 @@
 import XNavHeader from '@/src/common/components/XNavHeader';
 import XPageCore from '@/src/common/components/XPageCore';
 import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -22,6 +23,9 @@ function App() {
         {count}
       </div>
       <div>hello end</div>
+      <div>
+        <Outlet />
+      </div>
     </XPageCore>
   );
 }

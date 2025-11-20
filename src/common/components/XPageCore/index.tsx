@@ -1,5 +1,5 @@
 import BG from '@/src/assets/bg.jpg';
-import classnames from 'classnames';
+import { cva } from 'class-variance-authority';
 import type React from 'react';
 
 export interface IXPageCoreProps {
@@ -8,6 +8,14 @@ export interface IXPageCoreProps {
   renderPageFooter?: () => React.ReactNode;
   children: React.ReactNode;
 }
+
+const wrapperClassName = cva(
+  'fixed top-0 right-0 bottom-0 left-0 flex flex-col justify-start bg-auto bg-repeat'
+);
+
+const childrenClassName = cva(
+  'relative flex h-0 flex-1 flex-col justify-start overflow-y-auto'
+);
 
 export default function XPageCore(props: IXPageCoreProps) {
   const {
@@ -19,19 +27,16 @@ export default function XPageCore(props: IXPageCoreProps) {
 
   return (
     <div
-      className={classnames(
-        'fixed top-0 right-0 bottom-0 left-0 flex flex-col justify-start bg-auto bg-repeat'
-      )}
+      className={wrapperClassName()}
       style={{
         backgroundImage: `url('${BG}')`,
       }}
     >
       <div className='flex-0'>{renderPageHeader?.()}</div>
       <div
-        className={classnames(
-          'relative flex h-0 flex-1 flex-col justify-start overflow-y-auto',
-          customClassNameChildren
-        )}
+        className={childrenClassName({
+          className: customClassNameChildren,
+        })}
       >
         {children}
       </div>

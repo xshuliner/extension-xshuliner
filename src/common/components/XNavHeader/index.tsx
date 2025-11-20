@@ -1,6 +1,6 @@
-import XButton from '@/src/common/components/XButton';
+import { XButton } from '@/src/common/components/XButton';
 import XIcon from '@/src/common/components/XIcon';
-import classnames from 'classnames';
+import { cva } from 'class-variance-authority';
 import type React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +11,14 @@ export interface IXNavHeaderProps {
   renderCustomRight?: () => React.ReactNode;
   children: React.ReactNode;
 }
+
+const headerClassName = cva(
+  'relative box-border flex flex-row items-center justify-between gap-2 p-2'
+);
+
+const childrenWrapperClassName = cva(
+  'flex flex-1 flex-row items-center justify-start'
+);
 
 export default function XNavHeader(props: IXNavHeaderProps) {
   const {
@@ -32,12 +40,7 @@ export default function XNavHeader(props: IXNavHeaderProps) {
   };
 
   return (
-    <div
-      className={classnames(
-        'relative box-border flex flex-row items-center justify-between gap-2 p-2',
-        customClassName
-      )}
-    >
+    <div className={headerClassName({ className: customClassName })}>
       {/* left */}
       {(renderCustomLeft || window.history.length > 1) && (
         <div className='flex flex-0 flex-row items-center justify-center'>
@@ -53,10 +56,9 @@ export default function XNavHeader(props: IXNavHeaderProps) {
 
       {/* children */}
       <div
-        className={classnames(
-          'flex flex-1 flex-row items-center justify-start',
-          customClassNameChildren
-        )}
+        className={childrenWrapperClassName({
+          className: customClassNameChildren,
+        })}
       >
         {children}
       </div>

@@ -1,29 +1,11 @@
 import { XButton } from '@/src/common/components/XButton';
 import XNavHeader from '@/src/common/components/XNavHeader';
 import XPageCore from '@/src/common/components/XPageCore';
-import { useEventManager } from '@/src/common/hooks/useEventManager';
-import type { IMessageType } from '@/src/types';
 import type React from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
 export default function Home(): React.ReactNode {
   const navigate = useNavigate();
-
-  const { emit: _emitExtensions } = useEventManager(
-    'xshuliner-extensions',
-    (data: IMessageType) => {
-      // console.log('xshuliner-extensions', data);
-
-      const { type, ..._otherInfo } = data || {};
-
-      switch (type) {
-        case 'xshuliner-background-all-request-completed': {
-          console.log('xshuliner-background-all-request-completed', data);
-          break;
-        }
-      }
-    }
-  );
 
   const handleBtnDemoClick = () => {
     navigate(
@@ -42,8 +24,21 @@ export default function Home(): React.ReactNode {
     );
   };
 
-  const handleBtnOtherClick = () => {
-    navigate('/demo2');
+  const handleBtnLoginClick = () => {
+    navigate(
+      {
+        pathname: '/login',
+        search: createSearchParams({
+          from: 'home',
+          type: 'demo',
+        }).toString(),
+      },
+      {
+        state: {
+          from: 'homepage',
+        },
+      }
+    );
   };
 
   return (
@@ -55,7 +50,7 @@ export default function Home(): React.ReactNode {
     >
       <div className='absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center gap-2'>
         <XButton onClick={handleBtnDemoClick}>Demo</XButton>
-        <XButton onClick={handleBtnOtherClick}>404</XButton>
+        <XButton onClick={handleBtnLoginClick}>404</XButton>
       </div>
     </XPageCore>
   );

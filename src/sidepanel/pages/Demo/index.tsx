@@ -1,10 +1,20 @@
+import { XButton } from '@/src/common/components/XButton';
 import XNavHeader from '@/src/common/components/XNavHeader';
 import XPageCore from '@/src/common/components/XPageCore';
 import { useEventManager } from '@/src/common/hooks/useEventManager';
 import GlobalManager from '@/src/common/kits/GlobalManager';
 import type { IMessageType } from '@/src/types';
+import type React from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 
-export default function SidepanelApp() {
+export default function Demo(): React.ReactNode {
+  const {
+    pathname,
+    search: locationSearch,
+    state: locationState,
+  } = useLocation();
+  const routeParams = useParams();
+
   const { emit: _emitExtensions } = useEventManager(
     'xshuliner-extensions',
     (data: IMessageType) => {
@@ -21,26 +31,26 @@ export default function SidepanelApp() {
     }
   );
 
-  const handleBtnTest = () => {
+  const handleBtnTestClick = () => {
     GlobalManager.postConnectMessage({
       type: 'background-test-demo',
       payload: {
-        a: 1,
-        b: 2,
+        pathname,
+        params: routeParams,
+        state: locationState,
+        search: locationSearch,
       },
     });
   };
 
   return (
     <XPageCore
-      customClassNameChildren='px-2'
+      customClassNameChildren='px-2 flex items-center justify-center'
       renderPageHeader={() => {
-        return <XNavHeader>Side Panel</XNavHeader>;
+        return <XNavHeader>Demo</XNavHeader>;
       }}
     >
-      <p style={{ marginTop: 8 }} onClick={handleBtnTest}>
-        你好，这是 React 123 侧边面板。
-      </p>
+      <XButton onClick={handleBtnTestClick}>Demo</XButton>
     </XPageCore>
   );
 }
