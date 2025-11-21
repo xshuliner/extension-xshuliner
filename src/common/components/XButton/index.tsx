@@ -4,21 +4,25 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import type React from 'react';
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[inherit] disabled:active:scale-100 disabled:active:shadow-none [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive active:scale-95 active:shadow-inner",
   {
     variants: {
       variant: {
-        primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        primary:
+          'bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/80 disabled:hover:bg-primary disabled:active:bg-primary',
         destructive:
-          'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
+          'bg-destructive text-white hover:bg-destructive/90 active:bg-destructive/80 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 dark:active:bg-destructive/50 disabled:hover:bg-destructive disabled:active:bg-destructive dark:disabled:hover:bg-destructive/60 dark:disabled:active:bg-destructive/60',
         outline:
-          'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50',
+          'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground active:bg-accent/80 dark:bg-input/30 dark:border-input dark:hover:bg-input/50 dark:active:bg-input/40 disabled:hover:bg-background disabled:active:bg-background disabled:hover:text-foreground disabled:active:text-foreground dark:disabled:hover:bg-input/30 dark:disabled:active:bg-input/30',
         secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        accent: 'bg-accent text-accent-foreground hover:bg-accent/80',
-        muted: 'bg-muted text-muted-foreground hover:bg-muted/80',
-        ghost: 'bg-transparent text-foreground hover:bg-accent',
-        link: 'text-primary underline-offset-4 hover:underline',
+          'bg-secondary text-secondary-foreground hover:bg-secondary/80 active:bg-secondary/70 disabled:hover:bg-secondary disabled:active:bg-secondary',
+        accent:
+          'bg-accent text-accent-foreground hover:bg-accent/80 active:bg-accent/70 disabled:hover:bg-accent disabled:active:bg-accent',
+        muted:
+          'bg-muted text-muted-foreground hover:bg-muted/80 active:bg-muted/70 disabled:hover:bg-muted disabled:active:bg-muted',
+        ghost:
+          'bg-transparent text-foreground hover:bg-accent active:bg-accent/80 disabled:hover:bg-transparent disabled:active:bg-transparent',
+        link: 'text-primary underline-offset-4 hover:underline active:text-primary/80 disabled:hover:no-underline disabled:active:text-primary',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
@@ -41,6 +45,8 @@ function XButton({
   variant,
   size,
   asChild = false,
+  onClick,
+  disabled,
   ...props
 }: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
@@ -48,10 +54,21 @@ function XButton({
   }) {
   const Comp = asChild ? Slot : 'button';
 
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (disabled) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    onClick?.(e);
+  };
+
   return (
     <Comp
       data-slot='button'
       className={buttonVariants({ variant, size, className })}
+      disabled={disabled}
+      onClick={handleClick}
       {...props}
     />
   );

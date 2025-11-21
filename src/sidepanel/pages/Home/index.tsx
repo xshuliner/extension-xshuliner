@@ -54,7 +54,7 @@ export default function Home(): React.ReactNode {
             Demo
           </XButton>
           <XButton variant='primary' onClick={handleBtnLoginClick}>
-            404
+            Login
           </XButton>
         </div>
       </div>
