@@ -52,6 +52,7 @@ export default function Demo(): React.ReactNode {
     'muted',
     'ghost',
     'link',
+    'gradient',
   ] as const;
 
   const sizes = ['sm', 'default', 'lg'] as const;

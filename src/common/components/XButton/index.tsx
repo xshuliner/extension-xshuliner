@@ -23,6 +23,8 @@ const buttonVariants = cva(
         ghost:
           'bg-transparent text-foreground hover:bg-accent active:bg-accent/80 disabled:hover:bg-transparent disabled:active:bg-transparent',
         link: 'text-primary underline-offset-4 hover:underline active:text-primary/80 disabled:hover:no-underline disabled:active:text-primary',
+        gradient:
+          'group/btn relative overflow-hidden bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 text-base font-semibold text-white shadow-lg shadow-blue-500/30 duration-300 hover:shadow-xl hover:shadow-blue-500/40 active:scale-[0.98] active:shadow-lg active:shadow-blue-500/30 disabled:hover:scale-100 disabled:active:shadow-lg',
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
@@ -47,6 +49,7 @@ function XButton({
   asChild = false,
   onClick,
   disabled,
+  children,
   ...props
 }: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
@@ -63,6 +66,15 @@ function XButton({
     onClick?.(e);
   };
 
+  const content = (
+    <>
+      {children}
+      {variant === 'gradient' && (
+        <div className='absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover/btn:translate-x-full' />
+      )}
+    </>
+  );
+
   return (
     <Comp
       data-slot='button'
@@ -70,7 +82,9 @@ function XButton({
       disabled={disabled}
       onClick={handleClick}
       {...props}
-    />
+    >
+      {content}
+    </Comp>
   );
 }
 
