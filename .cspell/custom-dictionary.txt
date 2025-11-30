@@ -10,3 +10,6 @@ crxjs
 newtab
 webenv
 wechat
+blueimp
+minicode
+WEAPP
