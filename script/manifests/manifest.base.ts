@@ -28,9 +28,9 @@ export const manifestBase = {
     default_popup: 'src/popup/index.html',
     default_title: pkg.name,
     default_icon: {
-      '16': 'icon.png',
-      '48': 'icon.png',
-      '128': 'icon.png',
+      '16': 'icon_16x16.png',
+      '48': 'icon_48x48.png',
+      '128': 'icon_128x128.png',
     },
   },
 
@@ -42,7 +42,7 @@ export const manifestBase = {
   // Firefox uses `sidebar_action`. These are defined in browser-specific manifests.
 
   // DevTools page
-  devtools_page: 'src/devtools/devtools.html',
+  // devtools_page: 'src/devtools/devtools.html',
 
   // Override new tab
   // chrome_url_overrides: {
@@ -50,10 +50,10 @@ export const manifestBase = {
   // },
 
   // Options page
-  options_ui: {
-    page: 'src/options/index.html',
-    open_in_tab: true,
-  },
+  // options_ui: {
+  //   page: 'src/options/index.html',
+  //   open_in_tab: true,
+  // },
 
   content_scripts: [
     {
@@ -63,6 +63,8 @@ export const manifestBase = {
   ],
 
   icons: {
-    '128': 'icon.png',
+    '16': 'icon_16x16.png',
+    '48': 'icon_48x48.png',
+    '128': 'icon_128x128.png',
   },
 };

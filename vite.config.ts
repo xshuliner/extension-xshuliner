@@ -35,11 +35,11 @@ export default defineConfig(() => {
       emptyOutDir: true,
       // 确保开发时和生产时的构建目标一致
       target: 'esnext',
-      rollupOptions: {
-        input: {
-          devtools: path.resolve(__dirname, 'src/devtools/index.html'),
-        },
-      },
+      // rollupOptions: {
+      //   input: {
+      //     devtools: path.resolve(__dirname, 'src/devtools/index.html'),
+      //   },
+      // },
     },
 
     // 路径别名配置 (可选，但非常实用)

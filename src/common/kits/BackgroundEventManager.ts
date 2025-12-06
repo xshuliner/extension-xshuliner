@@ -149,25 +149,25 @@ class BackgroundEventManager {
   //   console.log('onWebRequestBeforeRequest detail:', details);
   // };
 
-  onWebRequestCompleted = (details: any) => {
-    // console.debug("请求 URL:", details.url);
+  // onWebRequestCompleted = (details: any) => {
+  //   // console.debug("请求 URL:", details.url);
 
-    const { url } = details;
+  //   const { url } = details;
 
-    const arrWhiteListList = ['ainAnalysis/getPortraitDat'];
+  //   const arrWhiteListList = ['ainAnalysis/getPortraitDat'];
 
-    const isListen = arrWhiteListList.some(item => {
-      return url?.includes(item);
-    });
+  //   const isListen = arrWhiteListList.some(item => {
+  //     return url?.includes(item);
+  //   });
 
-    if (isListen) {
-      console.debug('onWebRequestCompleted detail:', details);
-      this.postConnectMessage({
-        type: 'xshuliner-background-all-request-completed',
-        details,
-      });
-    }
-  };
+  //   if (isListen) {
+  //     console.debug('onWebRequestCompleted detail:', details);
+  //     this.postConnectMessage({
+  //       type: 'xshuliner-background-all-request-completed',
+  //       details,
+  //     });
+  //   }
+  // };
 
   onConnectCommon = async (
     message: IMessageType,

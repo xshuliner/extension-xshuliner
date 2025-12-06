@@ -3,6 +3,6 @@ export const manifestEdge = {
   side_panel: {
     default_path: 'src/sidepanel/index.html',
   },
-  permissions: ['storage', 'activeTab', 'sidePanel', 'webRequest'],
+  permissions: ['storage', 'activeTab', 'sidePanel'],
   host_permissions: ['<all_urls>'],
 };

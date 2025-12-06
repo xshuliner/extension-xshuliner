@@ -45,7 +45,7 @@ export default function Home(): React.ReactNode {
     <XPageCore
       customClassNameChildren='px-2'
       renderPageHeader={() => {
-        return <XNavHeader>Home</XNavHeader>;
+        return <XNavHeader />;
       }}
     >
       <div className='absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center gap-4'>

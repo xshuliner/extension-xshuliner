@@ -69,10 +69,10 @@ browser.tabs.onRemoved.addListener(BackgroundEventManager.onTabsRemoved);
 // //   ['blocking']
 // // );
 
-browser.webRequest.onCompleted.addListener(
-  BackgroundEventManager.onWebRequestCompleted,
-  { urls: ['<all_urls>'] }
-);
+// browser.webRequest.onCompleted.addListener(
+//   BackgroundEventManager.onWebRequestCompleted,
+//   { urls: ['<all_urls>'] }
+// );
 
 browser.runtime.onConnect.addListener((port: browser.Runtime.Port) => {
   // 监听连接断开

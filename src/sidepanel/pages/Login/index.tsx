@@ -6,7 +6,7 @@ import type React from 'react';
 export default function Demo(): React.ReactNode {
   return (
     <XPageCore
-      customClassNameChildren='px-2'
+      customClassNameChildren='px-2 items-center'
       renderPageHeader={() => {
         return <XNavHeader>Login</XNavHeader>;
       }}
