@@ -7,55 +7,6 @@ export const stopEventDefault = (e: React.MouseEvent): void => {
 };
 
 /**
- * 检查系统是否为暗色主题
- */
-export const isDarkMode = (): boolean => {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
-};
-
-/**
- * 应用主题到 document
- */
-export const applyTheme = (dark: boolean): void => {
-  if (dark) {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
-};
-
-/**
- * 切换主题
- */
-export const toggleTheme = (): void => {
-  document.documentElement.classList.toggle('dark');
-};
-
-/**
- * 初始化主题系统
- * 根据系统主题偏好自动设置，并监听系统主题变化
- * @returns 清理函数，用于移除监听器
- */
-export const initTheme = (): (() => void) => {
-  // 立即应用当前系统主题
-  const darkMode = isDarkMode();
-  applyTheme(darkMode);
-
-  // 监听系统主题变化
-  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-  const handleChange = (e: MediaQueryListEvent) => {
-    applyTheme(e.matches);
-  };
-
-  mediaQuery.addEventListener('change', handleChange);
-
-  // 返回清理函数
-  return () => {
-    mediaQuery.removeEventListener('change', handleChange);
-  };
-};
-
-/**
  * 递归遍历一个对象的所有字段，并对字段进行处理修改，修改的方法，通过传参函数来处理。
  * @param {object} params.obj 处理对象
  * @param {function} params.modifier 处理方法

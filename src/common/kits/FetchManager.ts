@@ -28,7 +28,7 @@ const web = {
     baseUrl: 'https://www.xshuliner.online/apiuat', // https://www.xshuliner.online/apiuat/smart/v1/tool/getActiveState?queryA=www
   },
   local: {
-    baseUrl: 'http://localhost:3000/api',
+    baseUrl: 'http://localhost:9002/apilocal',
   },
 };
 

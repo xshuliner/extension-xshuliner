@@ -1,3 +1,4 @@
+import XLayout from '@/src/common/components/XLayout';
 import NotFound from '@/src/common/pages/NotFound';
 import Demo from '@/src/sidepanel/pages/Demo';
 import Home from '@/src/sidepanel/pages/Home';
@@ -7,6 +8,7 @@ import { createHashRouter } from 'react-router-dom';
 export const router = createHashRouter([
   {
     path: '/',
+    element: <XLayout />,
     children: [
       {
         path: '/',

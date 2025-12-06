@@ -1,7 +1,5 @@
-import { initTheme } from '@/src/common/utils';
 import { cva } from 'class-variance-authority';
 import type React from 'react';
-import { useEffect } from 'react';
 
 export interface IXPageCoreProps {
   customClassNameChildren?: string;
@@ -25,12 +23,6 @@ export default function XPageCore(props: IXPageCoreProps) {
     renderPageFooter,
     children,
   } = props || {};
-
-  // 初始化主题系统
-  useEffect(() => {
-    const cleanup = initTheme();
-    return cleanup;
-  }, []);
 
   return (
     <div className={wrapperClassName()}>

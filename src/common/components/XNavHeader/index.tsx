@@ -1,9 +1,8 @@
 import { XButton } from '@/src/common/components/XButton';
-import { toggleTheme } from '@/src/common/utils';
+import { useTheme } from '@/src/common/hooks/useTheme';
 import { cva } from 'class-variance-authority';
 import { Home, Moon, Sun } from 'lucide-react';
 import type React from 'react';
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export interface IXNavHeaderProps {
@@ -32,25 +31,7 @@ export default function XNavHeader(props: IXNavHeaderProps) {
   } = props || {};
 
   const navigate = useNavigate();
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    // 检查当前主题
-    const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    };
-
-    checkTheme();
-
-    // 监听 class 变化
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  const { theme, toggleTheme } = useTheme();
 
   const handleBtnHomeClick = () => {
     console.log('handleBtnHomeClick');
@@ -96,7 +77,11 @@ export default function XNavHeader(props: IXNavHeaderProps) {
           onClick={handleToggleTheme}
           aria-label='切换主题'
         >
-          {isDark ? <Sun className='size-5' /> : <Moon className='size-5' />}
+          {theme === 'dark' ? (
+            <Sun className='size-5' />
+          ) : (
+            <Moon className='size-5' />
+          )}
         </XButton>
         {renderCustomRight && renderCustomRight?.()}
       </div>
