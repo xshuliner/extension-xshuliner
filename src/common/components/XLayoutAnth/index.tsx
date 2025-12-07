@@ -1,5 +1,4 @@
-import CacheManager from '@/src/common/kits/CacheManager';
-import { validateJwtToken } from '@/src/common/utils';
+import MemberManager from '@/src/common/kits/MemberManager';
 import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
@@ -10,19 +9,8 @@ export default function XLayoutAnth() {
   useEffect(() => {
     const checkToken = async () => {
       try {
-        const storage = await CacheManager.getSyncStorage(['token']);
-        const token = storage?.token;
-
-        // 验证 JWT token 的合法性和是否过期
-        const { isValid, isExpired } = validateJwtToken(token);
-
-        if (!token || !isValid || isExpired) {
-          // 如果没有 token、token 无效或已过期，重定向到登录页面
-          console.warn('Token validation failed:', {
-            hasToken: !!token,
-            isValid,
-            isExpired,
-          });
+        const isAuth = await MemberManager.isAuth();
+        if (!isAuth) {
           navigate('/login', { replace: true });
         }
       } catch (error) {

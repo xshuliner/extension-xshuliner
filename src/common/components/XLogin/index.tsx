@@ -1,6 +1,7 @@
 import logo from '@/src/assets/icon_128x128.png';
 import Api from '@/src/common/api';
 import { XButton } from '@/src/common/components/XButton';
+import MemberManager from '@/src/common/kits/MemberManager';
 import {
   Eye,
   EyeOff,
@@ -10,13 +11,14 @@ import {
   User,
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 type LoginMode = 'qrCode' | 'password';
 
 const XLogin = () => {
   const navigate = useNavigate();
-  const [loginMode, setLoginMode] = useState<LoginMode>('qrCode');
+  const [loginMode, setLoginMode] = useState<LoginMode>('password');
   // qrCode
   const [loading, setLoading] = useState<boolean>(false);
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
@@ -29,7 +31,7 @@ const XLogin = () => {
   const initQrCode = async () => {
     try {
       setLoading(true);
-      const resLogin = await Api.Xshuliner.login();
+      const resLogin = await Api.Xshuliner.postCreateMiniCodeLogin();
       const res = resLogin?.data?.body;
       console.log('XLogin init', res);
 
@@ -67,9 +69,22 @@ const XLogin = () => {
 
     try {
       setLoginLoading(true);
-      // TODO: 实现账号密码登录 API
-      // await Api.Xshuliner.passwordLogin({ username, password });
-      console.log('Password login', { username, password });
+      const res = await Api.Xshuliner.postLoginMemberInfoForPassword({
+        username,
+        password,
+      });
+      console.log('Password login', res);
+      if (res?.data?.code !== 200) {
+        console.error('Password login error', res?.data?.message);
+        toast.error('登录失败，请检查用户名和密码');
+        return;
+      }
+      const { memberInfo, token } = res?.data?.body || {};
+      await MemberManager.setToken(token);
+      MemberManager.setMemberInfo(memberInfo);
+      console.log('Password login success', memberInfo, token);
+      toast.success('登录成功');
+      navigate('/');
     } catch (error) {
       console.error('Password login error', error);
     } finally {
@@ -90,7 +105,7 @@ const XLogin = () => {
   }, []);
 
   return (
-    <div className='relative flex h-full w-86 flex-col items-center justify-start overflow-hidden px-4 pt-28'>
+    <div className='relative flex h-160 w-86 flex-col items-center justify-center overflow-hidden px-4'>
       <div className='relative w-full max-w-md'>
         {/* 顶部欢迎区域 */}
         <div className='mb-6 flex flex-col items-center gap-2'>
@@ -142,7 +157,7 @@ const XLogin = () => {
           {/* 卡片内容 */}
           <div className='p-6'>
             {loginMode === 'qrCode' ? (
-              <div className='flex flex-col items-center gap-6'>
+              <div className='flex h-84 flex-col items-center gap-6'>
                 {!loading ? (
                   <>
                     <div className='rounded-2xl border-2 border-border/30 bg-card/10 p-4 shadow-lg backdrop-blur-sm'>
@@ -178,7 +193,7 @@ const XLogin = () => {
             ) : (
               <form
                 onSubmit={handlePasswordLogin}
-                className='flex flex-col gap-5'
+                className='flex h-84 flex-col gap-5'
               >
                 {/* 用户名输入框 */}
                 <div className='flex flex-col gap-2'>
@@ -265,7 +280,7 @@ const XLogin = () => {
                 </div> */}
 
                 {/* 占位 */}
-                <div className='h-2' />
+                <div className='h-8' />
 
                 {/* 登录按钮 */}
                 <XButton
@@ -322,9 +337,6 @@ const XLogin = () => {
                     立即注册
                   </XButton>
                 </div> */}
-
-                {/* 占位 */}
-                <div className='h-1' />
               </form>
             )}
           </div>

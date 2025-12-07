@@ -3,9 +3,9 @@ import type React from 'react';
 
 export interface IXPageCoreProps {
   customClassNameChildren?: string;
-  renderPageHeader?: () => React.ReactNode;
-  renderPageFooter?: () => React.ReactNode;
-  children: React.ReactNode;
+  renderPageHeader?: () => React.ReactNode | null;
+  renderPageFooter?: () => React.ReactNode | null;
+  children: React.ReactNode | null;
 }
 
 const wrapperClassName = cva(

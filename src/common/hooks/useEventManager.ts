@@ -1,5 +1,5 @@
 import EventManager from '@/src/common/kits/EventManager';
-import type { IMessageType } from '@/src/types';
+import type { IMessageType } from '@/src/common/types';
 import { useCallback, useEffect } from 'react';
 
 /**

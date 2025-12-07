@@ -1,7 +1,7 @@
 /**
  * @description 全局变量管理器
  */
-import type { IMessageType } from '@/src/types';
+import type { IMessageType } from '@/src/common/types';
 import { v4 as uuidv4 } from 'uuid';
 import browser from 'webextension-polyfill';
 import EventManager from './EventManager';

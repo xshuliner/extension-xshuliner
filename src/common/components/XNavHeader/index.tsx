@@ -9,9 +9,9 @@ export interface IXNavHeaderProps {
   leftIcon?: string;
   customClassName?: string;
   customClassNameChildren?: string;
-  renderCustomLeft?: () => React.ReactNode;
-  renderCustomRight?: () => React.ReactNode;
-  children?: React.ReactNode;
+  renderCustomLeft?: () => React.ReactNode | null;
+  renderCustomRight?: () => React.ReactNode | null;
+  children?: React.ReactNode | null;
 }
 
 const headerClassName = cva(

@@ -2,7 +2,7 @@ import BrowserManager from '@/src/common/kits/BrowserManager';
 import CacheManager from '@/src/common/kits/CacheManager';
 // import FetchManager from '@/src/common/kits/FetchManager';
 import GlobalManager from '@/src/common/kits/GlobalManager';
-import type { IMessageType } from '@/src/types';
+import type { IMessageType } from '@/src/common/types';
 import browser from 'webextension-polyfill';
 
 /**

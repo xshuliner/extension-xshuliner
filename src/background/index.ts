@@ -1,5 +1,5 @@
 import BackgroundEventManager from '@/src/common/kits/BackgroundEventManager';
-import type { IMessageType } from '@/src/types';
+import type { IMessageType } from '@/src/common/types';
 import browser from 'webextension-polyfill';
 
 browser.runtime.onInstalled.addListener((): void => {
