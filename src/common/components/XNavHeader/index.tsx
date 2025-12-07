@@ -1,11 +1,12 @@
 import { XButton } from '@/src/common/components/XButton';
 import { useTheme } from '@/src/common/hooks/useTheme';
 import { cva } from 'class-variance-authority';
-import { Home, Moon, Sun } from 'lucide-react';
+import { ChevronLeft, Home, Moon, Sun } from 'lucide-react';
 import type React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export interface IXNavHeaderProps {
+  leftIcon?: string;
   customClassName?: string;
   customClassNameChildren?: string;
   renderCustomLeft?: () => React.ReactNode;
@@ -23,6 +24,7 @@ const childrenWrapperClassName = cva(
 
 export default function XNavHeader(props: IXNavHeaderProps) {
   const {
+    leftIcon = 'back',
     customClassName,
     customClassNameChildren,
     renderCustomLeft,
@@ -33,12 +35,12 @@ export default function XNavHeader(props: IXNavHeaderProps) {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
 
-  const handleBtnHomeClick = () => {
-    console.log('handleBtnHomeClick');
-    // navigate('/', {
-    //   replace: true,
-    // });
+  const handleBtnBackClick = () => {
     navigate(-1);
+  };
+
+  const handleBtnHomeClick = () => {
+    navigate('/', { replace: true });
   };
 
   const handleToggleTheme = () => {
@@ -48,10 +50,16 @@ export default function XNavHeader(props: IXNavHeaderProps) {
   return (
     <div className={headerClassName({ className: customClassName })}>
       {/* left */}
-      {(renderCustomLeft || window.history.length > 1) && (
+      {renderCustomLeft ? (
         <div className='flex flex-0 flex-row items-center justify-center'>
-          {renderCustomLeft ? (
-            renderCustomLeft?.()
+          {renderCustomLeft?.()}
+        </div>
+      ) : (
+        <div className='flex flex-0 flex-row items-center justify-center'>
+          {leftIcon === 'back' ? (
+            <XButton variant='ghost' onClick={handleBtnBackClick}>
+              <ChevronLeft className='size-5' />
+            </XButton>
           ) : (
             <XButton variant='ghost' onClick={handleBtnHomeClick}>
               <Home className='size-5' />

@@ -10,17 +10,20 @@ import {
   User,
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type LoginMode = 'qrCode' | 'password';
 
 const XLogin = () => {
+  const navigate = useNavigate();
   const [loginMode, setLoginMode] = useState<LoginMode>('qrCode');
-  const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
+  // qrCode
   const [loading, setLoading] = useState<boolean>(false);
+  const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
+  // password
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [rememberMe, setRememberMe] = useState<boolean>(false);
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
 
   const initQrCode = async () => {
@@ -74,11 +77,17 @@ const XLogin = () => {
     }
   };
 
+  const handleTermsOfServiceClick = () => {
+    navigate('/terms-of-service');
+  };
+
+  const handlePrivacyPolicyClick = () => {
+    navigate('/privacy-policy');
+  };
+
   useEffect(() => {
-    if (loginMode === 'qrCode') {
-      initQrCode();
-    }
-  }, [loginMode]);
+    initQrCode();
+  }, []);
 
   return (
     <div className='relative flex h-full w-86 flex-col items-center justify-start overflow-hidden px-4 pt-28'>
@@ -134,7 +143,7 @@ const XLogin = () => {
           <div className='p-6'>
             {loginMode === 'qrCode' ? (
               <div className='flex flex-col items-center gap-6'>
-                {qrCodeUrl ? (
+                {!loading ? (
                   <>
                     <div className='rounded-2xl border-2 border-border/30 bg-card/10 p-4 shadow-lg backdrop-blur-sm'>
                       <img
@@ -143,7 +152,7 @@ const XLogin = () => {
                         className='h-64 w-64 object-contain'
                       />
                     </div>
-                    <XButton
+                    {/* <XButton
                       variant='outline'
                       size='default'
                       onClick={handleRefresh}
@@ -152,7 +161,7 @@ const XLogin = () => {
                     >
                       <RefreshCw className={loading ? 'animate-spin' : ''} />
                       {loading ? '更新中...' : '刷新二维码'}
-                    </XButton>
+                    </XButton> */}
                     <p className='text-sm text-muted-foreground'>
                       请使用微信扫描上方二维码登录
                     </p>
@@ -328,7 +337,8 @@ const XLogin = () => {
             <XButton
               type='button'
               variant='link'
-              size='sm'
+              size='text-xs'
+              onClick={handleTermsOfServiceClick}
               className='text-muted-foreground underline hover:text-foreground'
             >
               服务条款
@@ -337,7 +347,8 @@ const XLogin = () => {
             <XButton
               type='button'
               variant='link'
-              size='sm'
+              size='text-xs'
+              onClick={handlePrivacyPolicyClick}
               className='text-muted-foreground underline hover:text-foreground'
             >
               隐私政策

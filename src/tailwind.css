@@ -3,44 +3,66 @@
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-primary: #0ea5e9;
+  /* 主色：使用 Logo 中的亮绿色，体现自然活力 */
+  --color-primary: #4a7c59;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #f1f5f9;
-  --color-secondary-foreground: #0f172a;
-  --color-destructive: #ef4444;
+  /* 次要色：浅绿色调，与 Logo 的自然主题呼应 */
+  --color-secondary: #e8f5e3;
+  --color-secondary-foreground: #1a2e0f;
+  /* 危险色：保持红色，但稍微调暗以与绿色系协调 */
+  --color-destructive: #dc2626;
   --color-destructive-foreground: #ffffff;
-  --color-background: #ffffff;
-  --color-foreground: #0f172a;
-  --color-accent: #f1f5f9;
-  --color-accent-foreground: #0f172a;
-  --color-input: #e2e8f0;
-  --color-ring: #0ea5e9;
-  --color-muted: #f1f5f9;
-  --color-muted-foreground: #64748b;
-  --color-border: #e2e8f0;
+  /* 背景：浅米绿色，营造自然清新的氛围 */
+  --color-background: #f5f7f0;
+  /* 前景：深森林绿，与 Logo 背景色呼应 */
+  --color-foreground: #1a2e0f;
+  /* 强调色：中等绿色，用于高亮和交互反馈 */
+  --color-accent: #6b9f7a;
+  --color-accent-foreground: #ffffff;
+  /* 输入框：浅绿色边框，保持自然感 */
+  --color-input: #d4e4d0;
+  /* 焦点环：使用主色 */
+  --color-ring: #4a7c59;
+  /* 静音色：浅绿色背景，深绿色文字 */
+  --color-muted: #e8f5e3;
+  --color-muted-foreground: #4a7c59;
+  /* 边框：浅绿色，与整体色调统一 */
+  --color-border: #d4e4d0;
+  /* 卡片：白色背景，保持清晰可读 */
   --color-card: #ffffff;
-  --color-card-foreground: #0f172a;
+  --color-card-foreground: #1a2e0f;
 }
 
 @layer base {
   :root.dark {
-    --color-primary: #38bdf8;
-    --color-primary-foreground: #0c4a6e;
-    --color-secondary: #1e293b;
-    --color-secondary-foreground: #f1f5f9;
-    --color-destructive: #ef4444;
-    --color-destructive-foreground: #fef2f2;
-    --color-background: #0f172a;
-    --color-foreground: #f1f5f9;
-    --color-accent: #1e293b;
-    --color-accent-foreground: #f1f5f9;
-    --color-input: #1e293b;
-    --color-ring: #38bdf8;
-    --color-muted: #1e293b;
-    --color-muted-foreground: #94a3b8;
-    --color-border: #1e293b;
-    --color-card: #0f172a;
-    --color-card-foreground: #f1f5f9;
+    /* 主色：亮绿色，类似 Logo 中的像素艺术亮绿色 */
+    --color-primary: #7dd87d;
+    --color-primary-foreground: #1a2e0f;
+    /* 次要色：深森林绿，与 Logo 背景色一致 */
+    --color-secondary: #2d5016;
+    --color-secondary-foreground: #e8f5e3;
+    /* 危险色：保持红色，但稍微调亮以适应深色背景 */
+    --color-destructive: #f87171;
+    --color-destructive-foreground: #1a2e0f;
+    /* 背景：深森林绿，完美匹配 Logo 背景 */
+    --color-background: #1a3d1a;
+    /* 前景：浅绿色调，确保在深色背景上清晰可读 */
+    --color-foreground: #e8f5e3;
+    /* 强调色：中等亮度的绿色，用于交互元素 */
+    --color-accent: #4a7c59;
+    --color-accent-foreground: #ffffff;
+    /* 输入框：深绿色背景 */
+    --color-input: #2d5016;
+    /* 焦点环：使用亮绿色 */
+    --color-ring: #7dd87d;
+    /* 静音色：深绿色背景，中等绿色文字 */
+    --color-muted: #2d5016;
+    --color-muted-foreground: #6b9f7a;
+    /* 边框：深绿色，与背景协调 */
+    --color-border: #2d5016;
+    /* 卡片：稍亮的深绿色，与背景形成层次 */
+    --color-card: #1f4a1f;
+    --color-card-foreground: #e8f5e3;
   }
 
   button:not(:disabled),
