@@ -2,6 +2,25 @@ import FetchManager from '@/src/common/kits/FetchManager';
 import md5 from 'blueimp-md5';
 
 /**
+ * 查询二维码登录状态
+ * @param params.uuid.required 二维码UUID
+ * @returns Promise
+ */
+export const getQueryMiniCodeLogin = async (params: {
+  uuid: string;
+}): Promise<any> => {
+  const query = {
+    uuid: params.uuid,
+  };
+
+  return await FetchManager.request({
+    method: 'GET',
+    url: '/smart/v1/minicode/getQueryMiniCodeLogin',
+    query,
+  });
+};
+
+/**
  * 登录函数
  * @param params 登录参数
  * @returns Promise
@@ -10,6 +29,17 @@ export const postCreateMiniCodeLogin = async (): Promise<any> => {
   return await FetchManager.request({
     method: 'POST',
     url: '/smart/v1/minicode/postCreateMiniCodeLogin',
+  });
+};
+
+/**
+ * 查询用户信息
+ * @returns Promise
+ */
+export const getQueryMemberInfo = async (): Promise<any> => {
+  return await FetchManager.request({
+    method: 'GET',
+    url: '/smart/v1/member/getQueryMemberInfo',
   });
 };
 
@@ -36,6 +66,8 @@ export const postLoginMemberInfoForPassword = async (params: {
 };
 
 export default {
+  getQueryMiniCodeLogin,
   postCreateMiniCodeLogin,
+  getQueryMemberInfo,
   postLoginMemberInfoForPassword,
 };

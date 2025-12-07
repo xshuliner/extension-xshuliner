@@ -10,7 +10,7 @@ import {
   RefreshCw,
   User,
 } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,18 +22,89 @@ const XLogin = () => {
   // qrCode
   const [loading, setLoading] = useState<boolean>(false);
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
+  const [isExpired, setExpired] = useState<boolean>(false);
+  const pollingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
+    null
+  );
   // password
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
 
+  // 停止轮询
+  const stopPolling = () => {
+    if (pollingIntervalRef.current) {
+      clearInterval(pollingIntervalRef.current);
+      pollingIntervalRef.current = null;
+    }
+  };
+
+  // 查询登录状态
+  const queryLoginStatus = async (uuid: string) => {
+    try {
+      const res = await Api.Xshuliner.getQueryMiniCodeLogin({ uuid });
+      const { timer, token } = res?.data?.body || {};
+
+      // 二维码过期
+      if (!timer) {
+        setExpired(true);
+        stopPolling();
+        return;
+      }
+
+      // 登录成功
+      if (token) {
+        stopPolling();
+        await MemberManager.setToken(token);
+        const resMemberInfo = await Api.Xshuliner.getQueryMemberInfo();
+        if (!resMemberInfo?.data?.body?.memberInfo) {
+          setExpired(true);
+          stopPolling();
+          toast.error('登录失败，请重新登录');
+          return;
+        }
+        await MemberManager.setToken(token);
+        MemberManager.setMemberInfo(resMemberInfo?.data?.body?.memberInfo);
+        toast.success('登录成功');
+        navigate('/');
+        return;
+      }
+    } catch (error) {
+      console.error('XLogin query status error', error);
+    }
+  };
+
+  // 开始轮询
+  const startPolling = (uuid: string) => {
+    // 先停止之前的轮询
+    stopPolling();
+    // 重置过期状态
+    setExpired(false);
+
+    // 立即查询一次
+    queryLoginStatus(uuid);
+
+    // 每2秒轮询一次
+    pollingIntervalRef.current = setInterval(() => {
+      queryLoginStatus(uuid);
+    }, 2000);
+  };
+
   const initQrCode = async () => {
     try {
       setLoading(true);
+      setExpired(false);
       const resLogin = await Api.Xshuliner.postCreateMiniCodeLogin();
+
       const res = resLogin?.data?.body;
-      console.log('XLogin init', res);
+      const uuid = resLogin?.data?.uuid || resLogin?.data?.body?.uuid;
+      console.log('XLogin init', res, 'uuid:', uuid);
+
+      // 开始轮询
+      if (uuid) {
+        startPolling(uuid);
+      }
 
       // 处理返回的 Buffer 数据
       if (Array.isArray(res?.data?.data)) {
@@ -52,12 +123,14 @@ const XLogin = () => {
       }
     } catch (error) {
       console.error('XLogin init error', error);
+      stopPolling();
     } finally {
       setLoading(false);
     }
   };
 
   const handleRefresh = () => {
+    stopPolling();
     initQrCode();
   };
 
@@ -101,8 +174,15 @@ const XLogin = () => {
   };
 
   useEffect(() => {
-    initQrCode();
-  }, []);
+    if (loginMode === 'qrCode') {
+      initQrCode();
+    }
+
+    // 清理函数：组件卸载或切换模式时停止轮询
+    return () => {
+      stopPolling();
+    };
+  }, [loginMode]);
 
   return (
     <div className='relative flex h-160 w-86 flex-col items-center justify-center overflow-hidden px-4'>
@@ -160,23 +240,32 @@ const XLogin = () => {
               <div className='flex h-84 flex-col items-center gap-6'>
                 {!loading ? (
                   <>
-                    <div className='rounded-2xl border-2 border-border/30 bg-card/10 p-4 shadow-lg backdrop-blur-sm'>
+                    <div className='relative rounded-2xl border-2 border-border/30 bg-card/10 p-4 shadow-lg backdrop-blur-sm'>
                       <img
                         src={qrCodeUrl}
                         alt='微信小程序太阳码'
-                        className='h-64 w-64 object-contain'
+                        className={`h-64 w-64 object-contain ${
+                          isExpired ? 'blur-sm' : ''
+                        }`}
                       />
+                      {isExpired && (
+                        <div className='absolute inset-0 flex flex-col items-center justify-center rounded-2xl bg-black/40 backdrop-blur-md'>
+                          <XButton
+                            variant='outline'
+                            size='default'
+                            onClick={handleRefresh}
+                            disabled={loading}
+                            className='gap-2 border-border/30 bg-card/20 text-foreground backdrop-blur-sm hover:bg-card/30'
+                          >
+                            <RefreshCw
+                              className={loading ? 'animate-spin' : ''}
+                            />
+                            {loading ? '更新中...' : '刷新二维码'}
+                          </XButton>
+                        </div>
+                      )}
                     </div>
-                    {/* <XButton
-                      variant='outline'
-                      size='default'
-                      onClick={handleRefresh}
-                      disabled={loading}
-                      className='gap-2 border-border/30 bg-card/10 text-foreground backdrop-blur-sm hover:bg-card/20'
-                    >
-                      <RefreshCw className={loading ? 'animate-spin' : ''} />
-                      {loading ? '更新中...' : '刷新二维码'}
-                    </XButton> */}
+
                     <p className='text-sm text-muted-foreground'>
                       请使用微信扫描上方二维码登录
                     </p>

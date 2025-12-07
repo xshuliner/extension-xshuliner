@@ -171,16 +171,14 @@ class FetchManager {
     const storage = await CacheManager.getSyncStorage(['token']);
     const token = storage?.token || null;
 
-    const { urlAndQuery, t, k, requestid } = await getApiHeaders({
+    const { t, k, requestid } = await getApiHeaders({
       path: url,
       query,
       body,
       token,
     });
 
-    const fullUrl = urlAndQuery.includes('://')
-      ? urlAndQuery
-      : `${this.baseUrl}${urlAndQuery}`;
+    const fullUrl = url.includes('://') ? url : `${this.baseUrl}${url}`;
 
     const headers: Record<string, string> = {
       platform: env,
