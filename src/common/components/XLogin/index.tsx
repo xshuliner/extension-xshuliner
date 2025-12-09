@@ -97,9 +97,8 @@ const XLogin = () => {
       setExpired(false);
       const resLogin = await Api.Xshuliner.postCreateMiniCodeLogin();
 
-      const res = resLogin?.data?.body;
-      const uuid = resLogin?.data?.uuid || resLogin?.data?.body?.uuid;
-      console.log('XLogin init', res, 'uuid:', uuid);
+      const { data, uuid } = resLogin?.data?.body || {};
+      console.log('XLogin init', data, 'uuid:', uuid);
 
       // 开始轮询
       if (uuid) {
@@ -107,10 +106,10 @@ const XLogin = () => {
       }
 
       // 处理返回的 Buffer 数据
-      if (Array.isArray(res?.data?.data)) {
-        console.log('XLogin init data', res?.data?.data);
+      if (Array.isArray(data?.data)) {
+        console.log('XLogin init data', data?.data);
         // 将 Buffer 数组转换为 Uint8Array
-        const uint8Array = new Uint8Array(res?.data?.data);
+        const uint8Array = new Uint8Array(data?.data);
         // 转换为 Blob
         const blob = new Blob([uint8Array], { type: 'image/jpeg' });
         // 将 Blob 转换为 base64 data URL
