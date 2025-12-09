@@ -22,13 +22,16 @@ export const getQueryMiniCodeLogin = async (params: {
 
 /**
  * 登录函数
- * @param params 登录参数
  * @returns Promise
  */
 export const postCreateMiniCodeLogin = async (): Promise<any> => {
   return await FetchManager.request({
     method: 'POST',
     url: '/smart/v1/minicode/postCreateMiniCodeLogin',
+    body: {
+      page: 'LG',
+      third: 'EX',
+    },
   });
 };
 
