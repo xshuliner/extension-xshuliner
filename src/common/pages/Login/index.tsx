@@ -6,12 +6,13 @@ import type React from 'react';
 export default function Login(): React.ReactNode {
   return (
     <XPageCore
-      customClassNameChildren='px-2 items-center'
       renderPageHeader={() => {
         return <XNavHeader leftIcon='home' />;
       }}
     >
-      <XLogin />
+      <div className='flex h-full w-full items-center justify-center px-2'>
+        <XLogin />
+      </div>
     </XPageCore>
   );
 }
