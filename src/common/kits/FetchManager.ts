@@ -16,8 +16,8 @@ import { v4 as uuidV4 } from 'uuid';
 // const { brand = '', web = {} } = brandInfo || {};
 // const { env = '' } = envInfo || {};
 const webenv = 'prod'; // 'prod';
-const env = 'WEAPP';
-const brand = 'zero';
+const env = 'EXTENSION';
+const brand = 'gatling';
 const secretKey = 'I@, ha*ve #187076081$ dream(s)!~';
 
 const web = {

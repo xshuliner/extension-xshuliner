@@ -31,6 +31,7 @@ export const postCreateMiniCodeLogin = async (): Promise<any> => {
     body: {
       page: 'LG',
       third: 'EX',
+      brand: 'zero',
     },
   });
 };
