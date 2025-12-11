@@ -18,14 +18,18 @@ class MemberManager {
   }
 
   getToken = async (): Promise<Record<string, string>> => {
-    const res = await CacheManager.getSyncStorage(['token']);
+    const res = await CacheManager.getSyncStorage(['token', 'refreshToken']);
 
     return res;
   };
 
-  setToken = async (token: string): Promise<void> => {
+  setToken = async (params: {
+    token: string;
+    refreshToken: string;
+  }): Promise<void> => {
     const res = await CacheManager.setSyncStorage({
-      token,
+      token: params?.token,
+      refreshToken: params?.refreshToken,
     });
 
     return res;
@@ -46,7 +50,7 @@ class MemberManager {
   };
 
   isAuth = async () => {
-    const { token } = await this.getToken();
+    const { token, _refreshToken } = await this.getToken();
 
     return !!token; // && !validateJwtToken(token);
   };

@@ -1,9 +1,9 @@
-import XNavHeader from '@/src/common/components/XNavHeader';
-import XPageCore from '@/src/common/components/XPageCore';
+import { XNavHeader } from '@/src/common/components/XNavHeader';
+import { XPageCore } from '@/src/common/components/XPageCore';
 import type React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function NotFound(): React.ReactNode {
+export function NotFound(): React.ReactNode {
   const navigate = useNavigate();
 
   const handleGoHome = () => {

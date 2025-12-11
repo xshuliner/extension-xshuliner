@@ -1,4 +1,4 @@
-export default function PopupApp() {
+export function PopupApp() {
   return (
     <div style={{ padding: 12 }}>
       <h3 style={{ margin: 0 }}>Popup</h3>

@@ -1,6 +1,6 @@
-import NotFound from '@/src/common/pages/NotFound';
-import Demo from '@/src/devtools/pages/Demo';
-import Home from '@/src/devtools/pages/Home';
+import { NotFound } from '@/src/common/pages/NotFound';
+import { Demo } from '@/src/devtools/pages/Demo';
+import { Home } from '@/src/devtools/pages/Home';
 import { createHashRouter } from 'react-router-dom';
 
 export const router = createHashRouter([

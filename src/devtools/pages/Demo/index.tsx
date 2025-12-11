@@ -1,13 +1,13 @@
 import { XButton } from '@/src/common/components/XButton';
-import XNavHeader from '@/src/common/components/XNavHeader';
-import XPageCore from '@/src/common/components/XPageCore';
+import { XNavHeader } from '@/src/common/components/XNavHeader';
+import { XPageCore } from '@/src/common/components/XPageCore';
 import { useEventManager } from '@/src/common/hooks/useEventManager';
 import GlobalManager from '@/src/common/kits/GlobalManager';
 import type { IMessageType } from '@/src/common/types';
 import type React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
-export default function Demo(): React.ReactNode {
+export function Demo(): React.ReactNode {
   const {
     pathname,
     search: locationSearch,

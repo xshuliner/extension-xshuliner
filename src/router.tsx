@@ -1,5 +1,5 @@
-import App from '@/src/App';
-import NotFound from '@/src/common/pages/NotFound';
+import { App } from '@/src/App';
+import { NotFound } from '@/src/common/pages/NotFound';
 import { createHashRouter } from 'react-router-dom';
 
 export const router = createHashRouter([

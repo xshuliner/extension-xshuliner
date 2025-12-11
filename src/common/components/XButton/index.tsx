@@ -3,8 +3,8 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type React from 'react';
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[inherit] disabled:active:scale-100 disabled:active:shadow-none [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive active:scale-95 active:shadow-inner",
+export const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[inherit] disabled:active:scale-100 disabled:active:shadow-none [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive active:scale-95 outline-none focus:outline-none",
   {
     variants: {
       variant: {
@@ -19,7 +19,7 @@ const buttonVariants = cva(
         accent:
           'bg-accent text-accent-foreground hover:bg-accent/80 active:bg-accent/70 disabled:hover:bg-accent disabled:active:bg-accent',
         muted:
-          'bg-muted text-muted-foreground hover:bg-muted/80 active:bg-muted/70 disabled:hover:bg-muted disabled:active:bg-muted',
+          'active:opacity-70 disabled:hover:opacity-100 disabled:active:opacity-100',
         ghost:
           'bg-transparent text-foreground hover:bg-accent active:bg-accent/80 disabled:hover:bg-transparent disabled:active:bg-transparent',
         link: 'text-primary underline-offset-4 hover:underline active:text-primary/80 disabled:hover:no-underline disabled:active:text-primary',
@@ -43,7 +43,7 @@ const buttonVariants = cva(
   }
 );
 
-function XButton({
+export function XButton({
   className,
   variant,
   size,
@@ -88,5 +88,3 @@ function XButton({
     </Comp>
   );
 }
-
-export { buttonVariants, XButton };

@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 
 type LoginMode = 'qrCode' | 'password';
 
-const XLogin = () => {
+export function XLogin(): React.ReactNode {
   const navigate = useNavigate();
   const [loginMode, setLoginMode] = useState<LoginMode>('password');
   // qrCode
@@ -151,8 +151,8 @@ const XLogin = () => {
         toast.error('登录失败，请检查用户名和密码');
         return;
       }
-      const { memberInfo, token } = res?.data?.body || {};
-      await MemberManager.setToken(token);
+      const { memberInfo, token, refreshToken } = res?.data?.body || {};
+      await MemberManager.setToken({ token, refreshToken });
       MemberManager.setMemberInfo(memberInfo);
       console.log('Password login success', memberInfo, token);
       toast.success('登录成功');
@@ -234,7 +234,7 @@ const XLogin = () => {
           </div>
 
           {/* 卡片内容 */}
-          <div className='p-6'>
+          <div className='px-6 pt-3 pb-6'>
             {loginMode === 'qrCode' ? (
               <div className='flex h-84 flex-col items-center gap-6'>
                 {!loading ? (
@@ -458,6 +458,6 @@ const XLogin = () => {
       </div>
     </div>
   );
-};
+}
 
 export default XLogin;

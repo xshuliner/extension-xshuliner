@@ -1,0 +1,18 @@
+import { XNavHeader } from '@/src/common/components/XNavHeader';
+import { XPageCore } from '@/src/common/components/XPageCore';
+import type React from 'react';
+
+export function User(): React.ReactNode {
+  return (
+    <XPageCore
+      customClassNameChildren='px-2'
+      renderPageHeader={() => {
+        return <XNavHeader renderCustomLeft={() => null} />;
+      }}
+    >
+      <div className='absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center gap-4'>
+        <div className='flex gap-2'>User</div>
+      </div>
+    </XPageCore>
+  );
+}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 // import browser from 'webextension-polyfill';
 
-export default function OptionsApp() {
+export function OptionsApp() {
   const [name, setName] = useState('');
 
   useEffect(() => {

@@ -1,10 +1,10 @@
 import { XButton } from '@/src/common/components/XButton';
-import XNavHeader from '@/src/common/components/XNavHeader';
-import XPageCore from '@/src/common/components/XPageCore';
+import { XNavHeader } from '@/src/common/components/XNavHeader';
+import { XPageCore } from '@/src/common/components/XPageCore';
 import type React from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
-export default function Home(): React.ReactNode {
+export function Home(): React.ReactNode {
   const navigate = useNavigate();
 
   const handleBtnDemoClick = () => {

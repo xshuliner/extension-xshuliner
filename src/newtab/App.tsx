@@ -1,4 +1,4 @@
-export default function NewtabApp() {
+export function NewtabApp() {
   return (
     <div style={{ padding: 12 }}>
       <h3 style={{ margin: 0 }}>New Tab</h3>

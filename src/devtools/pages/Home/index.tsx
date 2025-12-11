@@ -1,12 +1,12 @@
 import { XButton } from '@/src/common/components/XButton';
-import XNavHeader from '@/src/common/components/XNavHeader';
-import XPageCore from '@/src/common/components/XPageCore';
+import { XNavHeader } from '@/src/common/components/XNavHeader';
+import { XPageCore } from '@/src/common/components/XPageCore';
 import { useEventManager } from '@/src/common/hooks/useEventManager';
 import type { IMessageType } from '@/src/common/types';
 import type React from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
-export default function Home(): React.ReactNode {
+export function Home(): React.ReactNode {
   const navigate = useNavigate();
 
   const { emit: _emitExtensions } = useEventManager(

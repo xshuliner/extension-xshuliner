@@ -2,7 +2,7 @@ import MemberManager from '@/src/common/kits/MemberManager';
 import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-export default function XLayoutAnth() {
+export function XLayoutAnth() {
   const location = useLocation();
   const navigate = useNavigate();
 

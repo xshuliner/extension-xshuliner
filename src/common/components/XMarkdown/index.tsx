@@ -6,7 +6,7 @@ export interface IXMarkdownProps {
   className?: string;
 }
 
-export default function XMarkdown({
+export function XMarkdown({
   content,
   className,
 }: IXMarkdownProps): React.ReactNode {

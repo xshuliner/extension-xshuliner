@@ -1,9 +1,10 @@
-import XNavHeader from '@/src/common/components/XNavHeader';
-import XPageCore from '@/src/common/components/XPageCore';
+import { XNavHeader } from '@/src/common/components/XNavHeader';
+import { XPageCore } from '@/src/common/components/XPageCore';
+import type React from 'react';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-function App() {
+export function App(): React.ReactNode {
   const [count, setCount] = useState(0);
 
   return (

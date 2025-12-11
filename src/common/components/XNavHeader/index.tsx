@@ -22,7 +22,7 @@ const childrenWrapperClassName = cva(
   'flex flex-1 flex-row items-center justify-start'
 );
 
-export default function XNavHeader(props: IXNavHeaderProps) {
+export function XNavHeader(props: IXNavHeaderProps) {
   const {
     leftIcon = 'back',
     customClassName,
