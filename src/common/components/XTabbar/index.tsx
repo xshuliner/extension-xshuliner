@@ -11,7 +11,7 @@ import {
 import type React from 'react';
 import { useState } from 'react';
 
-type TabType = 'home' | 'agent' | 'discover' | 'user';
+type TabType = 'home' | 'agent' | 'discover' | 'mine';
 
 export interface ITabInfoType {
   id: TabType;
@@ -49,10 +49,10 @@ export function XTabbar(props: IXTabbarProps): React.ReactNode {
       path: '/discover',
     },
     {
-      id: 'user',
+      id: 'mine',
       Icon: UserRound,
       label: '我的',
-      path: '/user',
+      path: '/mine',
     },
   ]);
 

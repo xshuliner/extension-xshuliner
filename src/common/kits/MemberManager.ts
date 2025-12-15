@@ -103,7 +103,7 @@ class MemberManager {
   };
 
   async logout(): Promise<void> {
-    CacheManager.removeSyncStorage(['token']);
+    CacheManager.removeSyncStorage(['token', 'refreshToken']);
     this.memberInfo = null;
   }
 }
