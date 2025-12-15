@@ -1,3 +1,4 @@
+import Api from '@/src/common/api';
 import CacheManager from '@/src/common/kits/CacheManager';
 import type { IMemberInfoType } from '@/src/common/types';
 
@@ -35,6 +36,11 @@ class MemberManager {
     return res;
   };
 
+  removeToken = async (): Promise<void> => {
+    const res = await CacheManager.removeSyncStorage(['token', 'refreshToken']);
+    return res;
+  };
+
   getMemberInfo = (): IMemberInfoType | null => {
     return this.memberInfo;
   };
@@ -44,15 +50,28 @@ class MemberManager {
   };
 
   queryMemberInfo = async () => {
-    // const res = await Api.Xshuliner.queryMemberInfo();
-    // this.setMemberInfo(res);
-    // return res;
+    const resMemberInfo = await Api.Xshuliner.getQueryMemberInfo();
+
+    if (!resMemberInfo?.data?.body?.memberInfo) {
+      this.removeToken();
+      return null;
+    }
+    this.setMemberInfo(resMemberInfo?.data?.body?.memberInfo);
+    return resMemberInfo?.data?.body?.memberInfo;
   };
 
   isAuth = async () => {
     const { token, _refreshToken } = await this.getToken();
 
-    return !!token; // && !validateJwtToken(token);
+    if (!token) {
+      return false;
+    }
+
+    if (!this.memberInfo) {
+      await this.queryMemberInfo();
+    }
+
+    return !!token && !!this.memberInfo; // && !validateJwtToken(token);
   };
 
   checkAuth = async (): Promise<boolean> => {

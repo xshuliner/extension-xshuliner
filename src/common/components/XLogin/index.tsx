@@ -5,6 +5,7 @@ import MemberManager from '@/src/common/kits/MemberManager';
 import {
   Eye,
   EyeOff,
+  Loader2,
   Lock,
   MessageCircle,
   RefreshCw,
@@ -44,7 +45,7 @@ export function XLogin(): React.ReactNode {
   const queryLoginStatus = async (uuid: string) => {
     try {
       const res = await Api.Xshuliner.getQueryMiniCodeLogin({ uuid });
-      const { timer, token } = res?.data?.body || {};
+      const { timer, token, refreshToken } = res?.data?.body || {};
 
       // 二维码过期
       if (!timer) {
@@ -56,16 +57,14 @@ export function XLogin(): React.ReactNode {
       // 登录成功
       if (token) {
         stopPolling();
-        await MemberManager.setToken(token);
-        const resMemberInfo = await Api.Xshuliner.getQueryMemberInfo();
-        if (!resMemberInfo?.data?.body?.memberInfo) {
+        await MemberManager.setToken({ token, refreshToken });
+        const resMemberInfo = await MemberManager.queryMemberInfo();
+        if (!resMemberInfo) {
           setExpired(true);
           stopPolling();
           toast.error('登录失败，请重新登录');
           return;
         }
-        await MemberManager.setToken(token);
-        MemberManager.setMemberInfo(resMemberInfo?.data?.body?.memberInfo);
         toast.success('登录成功');
         navigate('/');
         return;
@@ -98,7 +97,7 @@ export function XLogin(): React.ReactNode {
       const resLogin = await Api.Xshuliner.postCreateMiniCodeLogin();
 
       const { data, uuid } = resLogin?.data?.body || {};
-      console.log('XLogin init', data, 'uuid:', uuid);
+      // console.log('XLogin init', data, 'uuid:', uuid);
 
       // 开始轮询
       if (uuid) {
@@ -107,7 +106,7 @@ export function XLogin(): React.ReactNode {
 
       // 处理返回的 Buffer 数据
       if (Array.isArray(data?.data)) {
-        console.log('XLogin init data', data?.data);
+        // console.log('XLogin init data', data?.data);
         // 将 Buffer 数组转换为 Uint8Array
         const uint8Array = new Uint8Array(data?.data);
         // 转换为 Blob
@@ -270,8 +269,8 @@ export function XLogin(): React.ReactNode {
                     </p>
                   </>
                 ) : (
-                  <div className='flex flex-col items-center gap-3 py-12'>
-                    <div className='size-8 animate-spin rounded-full border-4 border-border/20 border-t-foreground' />
+                  <div className='box-border flex h-full w-full flex-col items-center justify-center gap-4 pb-4'>
+                    <Loader2 className='size-8 animate-spin text-muted-foreground' />
                     <div className='text-sm text-muted-foreground'>
                       加载中...
                     </div>

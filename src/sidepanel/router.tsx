@@ -10,7 +10,7 @@ import { Agent } from '@/src/sidepanel/pages/Agent';
 import { Demo } from '@/src/sidepanel/pages/Demo';
 import { Discover } from '@/src/sidepanel/pages/Discover';
 import { Home } from '@/src/sidepanel/pages/Home';
-import { User } from '@/src/sidepanel/pages/User';
+import { Mine } from '@/src/sidepanel/pages/Mine';
 import { createHashRouter } from 'react-router-dom';
 
 export const router = createHashRouter([
@@ -38,8 +38,8 @@ export const router = createHashRouter([
                 element: <Discover />,
               },
               {
-                path: '/user',
-                element: <User />,
+                path: '/mine',
+                element: <Mine />,
               },
             ],
           },

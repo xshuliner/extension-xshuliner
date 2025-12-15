@@ -10,6 +10,7 @@ export function XLayoutAnth() {
     const checkToken = async () => {
       try {
         const isAuth = await MemberManager.isAuth();
+
         if (!isAuth) {
           navigate('/login', { replace: true });
         }
